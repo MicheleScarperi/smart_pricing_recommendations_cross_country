@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-df = pd.read_csv("/content/test/data_gen_v1.csv", sep="|")
+df = pd.read_csv("data_gen_v1.csv", sep="|")
+print(df.head())
 
 df_tomerge = pd.read_csv("lookup.csv", sep=";")
 
