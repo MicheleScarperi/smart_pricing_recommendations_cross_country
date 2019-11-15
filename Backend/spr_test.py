@@ -1,9 +1,9 @@
 import pandas as pd
 import numpy as np
-df1 = pd.read_csv("data_gen_v1.csv", sep="|", index_col=0)
+df1 = pd.read_csv("Backend/data_gen_v1.csv", sep="|", index_col=0)
 #print(df1.head())
 
-df2 = pd.read_csv("lookup.csv", sep=";", index_col=0)
+df2 = pd.read_csv("Backend/lookup.csv", sep=";", index_col=0)
 
 
 #Ideal DF
