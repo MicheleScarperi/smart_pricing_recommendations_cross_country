@@ -1,4 +1,4 @@
-,gtin,product_name,product_desc,availability,current_price,shipping_cost,product_rating,vendor_name,ref_link,product_img
+gtin,product_name,product_desc,availability,current_price,shipping_cost,product_rating,vendor_name,ref_link,product_img
 0,869386305049,AUGUST,"congue, elit",True,"$6,164",$20.08,4,Christmas Island,yahoo.com,https://analyticsindiamag.com/wp-content/uploads/2017/06/Bws7vMhIIAAFK9R.jpg
 1,5441916821539,ACCEL,"gravida sit amet, dapibus id, blandit at,",True,"$9,586",$44.77,5,Bouvet Island,amazon.com,https://analyticsindiamag.com/wp-content/uploads/2017/06/Trump_Big_Data_Meme.jpg
 2,4806378086195,AKILA,"lectus ante dictum mi, ac mattis",False,"$8,390",$13.65,3,Sint Maarten,amazon.com,https://analyticsindiamag.com/wp-content/uploads/2017/06/Trump_Big_Data_Meme.jpg
