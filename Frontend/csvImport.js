@@ -10,3 +10,5 @@ var fileInput = document.getElementById("csv"),
     };
 
 fileInput.addEventListener('change', readFile);
+console.log("fileInput" + fileInput)
+console.log("readFile" + readFile)
