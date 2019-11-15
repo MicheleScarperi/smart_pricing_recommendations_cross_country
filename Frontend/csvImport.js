@@ -1,4 +1,6 @@
-var fileInput = document.getElementById("csv"),
+var fileInput = document.getElementById("csv");
+console.log("console log 1 for fileinput =" + fileInput)
+
 
     readFile = function () {
         var reader = new FileReader();
