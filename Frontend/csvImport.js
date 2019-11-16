@@ -4,7 +4,7 @@ var fileInput = document.getElementById("csv"),
     readFile = function () {
         var reader = new FileReader();
         reader.onload = function () {
-            //document.getElementById('out').innerHTML = reader.result;
+            document.getElementById('out').innerHTML = reader.result;
             table = reader.result 
             csvAsArray = reader.result.csvToArray();
             console.log(csvAsArray)

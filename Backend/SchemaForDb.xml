@@ -1,0 +1,10 @@
+<field name="gtin" type="integer" default="0.0" indexed="true" stored="true"/>
+<field name="product_name" type="string" default="0.0" indexed="true" stored="true"/>
+<field name="product_desc" type="string" default="0.0" indexed="true" stored="true"/>
+<field name="availability" type="boolean" default="0.0" indexed="true" stored="true"/>
+<field name="current_price" type="decimal" default="0.0" indexed="true" stored="true"/>
+<field name="shipping_cost" type="decimal" default="0.0" indexed="true" stored="true"/>
+<field name="product_rating" type="integer" default="0.0" indexed="true" stored="true"/>
+<field name="vendor_name" type="string" default="0.0" indexed="true" stored="true"/>
+<field name="ref_link" type="string" default="0.0" indexed="true" stored="true"/>
+<field name="product_img" type="string" default="0.0" indexed="true" stored="true"/>
