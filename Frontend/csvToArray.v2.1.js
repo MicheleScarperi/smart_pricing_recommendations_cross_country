@@ -19,7 +19,7 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- * csvToArray v2.0 (Unminifiled for development)
+ * csvToArray v2.1 (Unminifiled for development)
  *
  * For documentation visit:
  * http://code.google.com/p/csv-to-array/
@@ -44,9 +44,9 @@ String.prototype.csvToArray = function (o) {
         ['']
     ];
     for (var r = f = p = q = 0; p < this.length; p++) {
-        switch (c = this[p]) {
+        switch (c = this.charAt(p)) {
         case o.quot:
-            if (q && this[p + 1] == o.quot) {
+            if (q && this.charAt(p + 1) == o.quot) {
                 a[r][f] += o.quot;
                 ++p;
             } else {
@@ -55,19 +55,22 @@ String.prototype.csvToArray = function (o) {
             break;
         case o.fSep:
             if (!q) {
-				if (o.trim) {
+                if (o.trim) {
                     a[r][f] = a[r][f].replace(/^\s\s*/, '').replace(/\s\s*$/, '');
                 }
-				a[r][++f] = '';
+                a[r][++f] = '';
             } else {
                 a[r][f] += c;
             }
             break;
-        case o.rSep[0]:
-            if (!q && (!o.rSep[1] || (o.rSep[1] && o.rSep[1] == this[p + 1]))) {
+        case o.rSep.charAt(0):
+            if (!q && (!o.rSep.charAt(1) || (o.rSep.charAt(1) && o.rSep.charAt(1) == this.charAt(p + 1)))) {
+                if (o.trim) {
+                    a[r][f] = a[r][f].replace(/^\s\s*/, '').replace(/\s\s*$/, '');
+                }
                 a[++r] = [''];
                 a[r][f = 0] = '';
-                if (o.rSep[1]) {
+                if (o.rSep.charAt(1)) {
                     ++p;
                 }
             } else {

@@ -6,7 +6,7 @@ var fileInput = document.getElementById("csv"),
         reader.onload = function () {
             //document.getElementById('out').innerHTML = reader.result;
             table = reader.result 
-            csvAsArray = reader.result.csvToArray(",","\n");
+            csvAsArray = reader.result.csvToArray();
             console.log(csvAsArray)
         };
         // start reading the file. When it is done, calls the onload event defined above.
