@@ -1,8 +1,8 @@
-# import bs4 
-# import urllib2
+from bs4 import Beautifulsoup as bfs  
+from urllib.request import urlopen
 
-# content = urllib2.urlopen(url).read()
-# ​
-# soup = bs4(content)
-# ​
-# print soup.prettify()
+url = "https://www.idealo.de/preisvergleich/OffersOfProduct/6461748_-galaxy-s10-plus-samsung.html"
+content = urlopen(url).read()
+soup = bfs(content)
+
+print (soup.prettify())
