@@ -1,10 +1,12 @@
 from datetime import datetime
 
+
 def get_timestamp():
     return datetime.now().strftime(("%Y-%m-%d %H:%M:%S"))
 
+
 # Data to serve with our API
-PEOPLE = {
+PHONES = {
     "Farrell": {
         "fname": "Doug",
         "lname": "Farrell",
@@ -22,13 +24,14 @@ PEOPLE = {
     }
 }
 
-# Create a handler for our read (GET) people
+
+# Create a handler for our read (GET) PHONES
 def read():
     """
     This function responds to a request for /api/people
-    with the complete lists of people
+    with the complete lists of phones
 
-    :return:        sorted list of people
+    :return:        sorted list of PHONES dictionary.
     """
-    # Create the list of people from our data
-    return [PEOPLE[key] for key in sorted(PEOPLE.keys())]
+    # Create the list of phones from our data
+    return [PHONES[key] for key in sorted(PHONES.keys())]
