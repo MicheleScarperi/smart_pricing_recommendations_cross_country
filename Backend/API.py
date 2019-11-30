@@ -1,21 +1,40 @@
 from flask import render_template
 import connexion
+from flask import request, url_for
+from flask_api import FlaskAPI, status, exceptions
 
-# Create the application instance
-app = connexion.App(__name__, specification_dir='./')
+app = FlaskAPI(__name__)
 
-# Read the swagger.yml file to configure the endpoints
-app.add_api('swagger.yml')
+products = {
+    0: 'iPhone X',
+    1: 'Samsung Galaxy',
+    2: 'Nokia',
+}
+
+
+def product_repr(key):
+    return {
+        'url': request.host_url.rstrip('/') + url_for('products_list', key=key),
+        'text': products[key]
+    }
+
 
 # Create a URL route in our application for "/"
-@app.route('/')
-def home():
+@app.route('/', methods=['GET', 'POST'])
+def products_list():
     """
-    This function just responds to the browser ULR
-    localhost:5000/
+    List products.
     :return:        the rendered template 'home.html'
     """
-    return render_template('home.html')
+    if request.method == 'POST':
+        product = str(request.data.get('text', ''))
+        idx = max(products.keys()) + 1
+        products[idx] = product
+        return product_repr(idx), status.HTTP_201_CREATED
+
+    # request.method == 'GET'
+    return [product_repr(idx) for idx in sorted(products.keys())]
+
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
