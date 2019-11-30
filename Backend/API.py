@@ -64,6 +64,7 @@ def api_id():
 
     return jsonify(searchResults)
 
+# http://0.0.0.0:5000/search?idd=1 this in the url will return Samsung Galaxy
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
