@@ -1,20 +1,22 @@
-import flask
+from flask import render_template
+import connexion
 
-# Create 	POST 	Create a new, unique thing
-# Read 	GET 	Read the information about a thing or collection of things
-# Update 	PUT 	Update the information about an existing thing
-# Delete 	DELETE 	Delete a thing
+# Create the application instance
+app = connexion.App(__name__, specification_dir='./')
 
-app = flask.Flask(__name__)
+# Read the swagger.yml file to configure the endpoints
+app.add_api('swagger.yml')
 
-
-@app.route('/', methods=['GET'])
+# Create a URL route in our application for "/"
+@app.route('/')
 def home():
-    return "<h1>Welcome to Smart Price Recommendations!</h1><p>You can find the best price for the most value here.</p>"
+    """
+    This function just responds to the browser ULR
+    localhost:5000/
+    :return:        the rendered template 'home.html'
+    """
+    return render_template('home.html')
 
-
-app.run()
-
-# test comment
-
-#daniel is confused
+# If we're running in stand alone mode, run the application
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
