@@ -1,5 +1,5 @@
-from flask import Flask, request, url_for, jsonify, render_template
 import pandas as pd
+from flask import Flask, request, jsonify, render_template
 
 app = Flask(__name__)
 
@@ -32,12 +32,11 @@ def search():
     return render_template('results.html', result=whatwassearched)
 
 
-@app.route('/tables')
+@app.route('/tables', methods=['POST', 'GET'])
 def show_tables():
-    data1 = pd.read_csv('merged.csv', index_col=0)
-    data1.index.name = None
-    prodname = data1.loc[data1.productname]
-    return render_template('analysis.html', tables=[prodname.to_html], titles=['Product Name'])
+    # data1 = pd.read_csv('merged.csv', index_col=0)
+    # prodname = data1.loc[data1.productname]
+    return render_template('analysis.html')# , tables=[prodname.to_html(classes='data')], titles=data1.columns.values)
 
 
 @app.route('/search1', methods=['GET'])
