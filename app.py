@@ -1,4 +1,5 @@
 from flask import Flask, request, url_for, jsonify, render_template
+import pandas as pd
 
 app = Flask(__name__)
 
@@ -8,12 +9,11 @@ products = {
     2: 'Nokia',
 }
 
-
-def product_repr(key):
+"""def product_repr(key):
     return {
         'url': request.host_url.rstrip('/') + url_for('products_list', key=key),
         'text': products[key]
-    }
+    }"""
 
 
 # Create a URL route in our application for "/"
@@ -30,6 +30,14 @@ def search():
     # results = findProduct(whatwassearched)
 
     return render_template('results.html', result=whatwassearched)
+
+
+@app.route('/tables')
+def show_tables():
+    data1 = pd.read_csv('merged.csv', index_col=0)
+    data1.index.name = None
+    prodname = data1.loc[data1.productname]
+    return render_template('analysis.html', tables=[prodname.to_html], titles=['Product Name'])
 
 
 @app.route('/search1', methods=['GET'])
