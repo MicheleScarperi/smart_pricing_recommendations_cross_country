@@ -34,9 +34,9 @@ def search():
 
 @app.route('/tables', methods=['POST', 'GET'])
 def show_tables():
-    # data1 = pd.read_csv('merged.csv', index_col=0)
-    # prodname = data1.loc[data1.productname]
-    return render_template('analysis.html')# , tables=[prodname.to_html(classes='data')], titles=data1.columns.values)
+    df1 = pd.read_csv('/Backend/merged.csv')
+
+    return render_template('analysis.html')
 
 
 @app.route('/search1', methods=['GET'])
