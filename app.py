@@ -55,7 +55,7 @@ def api_id():
     searchResults = []
 
     # Loop through the data and match results that fit.
-    # IDs are unique, but other fields might return many results.
+    # IDs are unique, but other fields might return many results.0,
     for searchResult in products:
         if searchResult['idd'] == idd:
             searchResults.append(searchResult)
@@ -67,4 +67,4 @@ def api_id():
 
 # If we're running in stand alone mode, run the application
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='127.0.0.1', port=5000, debug=True)
