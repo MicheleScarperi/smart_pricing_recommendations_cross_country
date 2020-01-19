@@ -1,39 +1,11 @@
 import pandas as pd
 from tkinter import *
+import webbrowser
 
-root = Tk()
-root.title("Mediamarkt Smartphone Comparison Tool")
-lbl = Label(root, text="Search for your phone here:")
-lbl.grid(row=0, column=0)
-sb = Entry()
-sb.grid(row=1, column=0)
+def callback(event):
+    webbrowser.open_new(event.widget.cget("text"))
 
-
-def clicked():
-
-    text=sb.get()
-    height = 5
-    width = 5
-    for i in range(height):  # Rows
-        for j in range(width):  # Columns
-            b = Label(root, text=text)
-            b.grid(row=i + 1, column=j + 1)
-
-
-btn = Button(root, text="Search", command=clicked)
-btn.grid(column=0, row=2)
-
-
-
-
-mainloop()
-
-
-# read merged product CSV
 data = pd.read_csv("merged.csv", index_col=0)
-# enter search query, make uppercase and separate by word - HAS TO BE REPLACED WITH THE PUSH REQUEST DATA
-search_words = str.upper("Samsung Galaxy S10e 128gb").split()
-
 
 def search_query(df, column, search, search_leeway=0):
     """inputs: df: dataFrame, search: list of search words, leeway: disregards n items from the search words
@@ -63,7 +35,65 @@ def search_query(df, column, search, search_leeway=0):
             return result
 
     return "Error! Not found."  # if loop ends without result, returns error
+#search_words = str.upper("Samsung Galaxy S10e 128gb").split()
 
 
-# execute function and save results in search_results
-search_results = search_query(data, "productname", search_words, 0)
+root = Tk()
+root.title("Mediamarkt Smartphone Comparison Tool")
+lbl = Label(root, text="Search for your phone here:")
+lbl.grid(row=0, column=0)
+
+
+
+sb = Entry()
+sb.grid(row=1, column=0)
+
+frame = Frame()
+frame.grid(row=1, column=1)
+
+def clicked():
+
+    for widget in frame.winfo_children():
+        widget.destroy()
+
+    proddname = Label(frame, text="Product Name", anchor="w", width=20)
+    proddname.grid(row=0, column=0)
+    link = Label(frame, text="Product Link", anchor="w", width=30)
+    link.grid(row=0, column=1)
+    price = Label(frame, text="Price (EUR)", anchor="w", width =10)
+    price.grid(row=0, column=2)
+    status = Label(frame, text="Availability", anchor="w")
+    status.grid(row=0, column=3)
+    country = Label(frame, text="Country", anchor="w")
+    country.grid(row=0, column=4)
+
+
+
+    search_words = str.upper(sb.get()).split()
+
+    results = search_query(data, "productname", search_words, 0)
+
+    height = len(results)
+
+    for i in range(height):  # Rows
+         b = Label(frame, text=results.iloc[i,0], anchor="w", justify=LEFT, width=20, wraplength=150)
+         b.grid(row=i + 1, column=0)
+
+         c = Label(frame, text=results.iloc[i,1], anchor="w", justify=LEFT, width=30, fg="blue", cursor="hand2")
+         c.grid(row=i + 1, column=1)
+         c.bind("<Button-1>", callback)
+
+         d = Label(frame, text=str(int(results.iloc[i, 2])) + " EUR", anchor="e", justify=RIGHT, width=10)
+         d.grid(row=i + 1, column=2)
+
+
+btn = Button(root, text="Search", command=clicked)
+btn.grid(column=0, row=2)
+
+
+
+
+mainloop()
+
+
+
