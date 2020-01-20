@@ -2,10 +2,13 @@ import pandas as pd
 from tkinter import *
 import webbrowser
 
+
 def callback(event):
     webbrowser.open_new(event.widget.cget("text"))
 
+
 data = pd.read_csv("merged.csv", index_col=0)
+
 
 def search_query(df, column, search, search_leeway=0):
     """inputs: df: dataFrame, search: list of search words, leeway: disregards n items from the search words
@@ -14,7 +17,7 @@ def search_query(df, column, search, search_leeway=0):
     df["search_eval_col"] = df[column].str.upper()  # uppercase column to be searched
     df["score"] = 0  # initialize score counter
 
-    # for every search word, iterate through the entire df
+# for every search word, iterate through the entire df
     for word in search:
         for index in df.index:
 
@@ -31,25 +34,22 @@ def search_query(df, column, search, search_leeway=0):
             count = count-1         # decrements the number of keywords
         else:
             result = df[(df["score"] > count-search_leeway)]   # when result is found (with leeway),
+            result = result.sort_values(by=["price", "score"])
             result.drop(columns=['search_eval_col', 'score'], inplace=True)  # drops extra columns and returns
             return result
 
     return "Error! Not found."  # if loop ends without result, returns error
-#search_words = str.upper("Samsung Galaxy S10e 128gb").split()
 
 
 root = Tk()
 root.title("Mediamarkt Smartphone Comparison Tool")
 lbl = Label(root, text="Search for your phone here:")
 lbl.grid(row=0, column=0)
-
-
-
 sb = Entry()
 sb.grid(row=1, column=0)
-
 frame = Frame()
-frame.grid(row=1, column=1)
+frame.grid(row=2, column=1)
+
 
 def clicked():
 
@@ -60,14 +60,12 @@ def clicked():
     proddname.grid(row=0, column=0)
     link = Label(frame, text="Product Link", anchor="w", width=30)
     link.grid(row=0, column=1)
-    price = Label(frame, text="Price (EUR)", anchor="w", width =10)
+    price = Label(frame, text="Price (EUR)", anchor="e", width=10)
     price.grid(row=0, column=2)
-    status = Label(frame, text="Availability", anchor="w")
+    status = Label(frame, text="Availability", anchor="w", width=20)
     status.grid(row=0, column=3)
-    country = Label(frame, text="Country", anchor="w")
+    country = Label(frame, text="Country", anchor="w", width=20)
     country.grid(row=0, column=4)
-
-
 
     search_words = str.upper(sb.get()).split()
 
@@ -75,25 +73,26 @@ def clicked():
 
     height = len(results)
 
-    for i in range(height):  # Rows
-         b = Label(frame, text=results.iloc[i,0], anchor="w", justify=LEFT, width=20, wraplength=150)
-         b.grid(row=i + 1, column=0)
+    for i in range(height):
 
-         c = Label(frame, text=results.iloc[i,1], anchor="w", justify=LEFT, width=30, fg="blue", cursor="hand2")
-         c.grid(row=i + 1, column=1)
-         c.bind("<Button-1>", callback)
+        b = Label(frame, text=results.iloc[i, 0], anchor="w", justify=LEFT, width=20, wraplength=150)
+        b.grid(row=i + 1, column=0)
 
-         d = Label(frame, text=str(int(results.iloc[i, 2])) + " EUR", anchor="e", justify=RIGHT, width=10)
-         d.grid(row=i + 1, column=2)
+        c = Label(frame, text=results.iloc[i, 1], anchor="w", justify=LEFT, width=30, fg="blue", cursor="hand2")
+        c.grid(row=i + 1, column=1)
+        c.bind("<Button-1>", callback)
+
+        d = Label(frame, text=str(int(results.iloc[i, 2])) + " EUR", anchor="e", justify=RIGHT, width=10)
+        d.grid(row=i + 1, column=2)
+
+        e = Label(frame, text=results.iloc[i, 3], anchor="w", justify=LEFT, width=20, wraplength=155)
+        e.grid(row=i + 1, column=3)
+
+        f = Label(frame, text=results.iloc[i, 4], anchor="w", justify=LEFT, width=20, wraplength=100)
+        f.grid(row=i + 1, column=4)
 
 
-btn = Button(root, text="Search", command=clicked)
-btn.grid(column=0, row=2)
-
-
-
+btn = Button(root, text="Search", command=clicked, anchor="w", justify=LEFT)
+btn.grid(column=1, row=1, sticky="w")
 
 mainloop()
-
-
-
